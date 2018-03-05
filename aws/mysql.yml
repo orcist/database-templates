@@ -50,9 +50,9 @@ Parameters:
     AllocatedStorage:
         Default: 20
         Description: Storage to allocate in GB (Default "20")
-        Type: Int
-        Min: 20
-        Max: 16384
+        Type: Number
+        MinValue: 20
+        MaxValue: 16384
         ConstraintDescription: Allocated storage size must be in range 20-16384 GB
 
 Metadata:
@@ -133,6 +133,10 @@ Resources:
               Ref: DatabasePassword
             PreferredBackupWindow: 02:00-03:00
             PreferredMaintenanceWindow: mon:03:00-mon:04:00
+            DBSubnetGroupName:
+                Ref: DatabaseSubnetGroup
+            VPCSecurityGroups:
+                - Ref: DatabaseSecurityGroup
 
     DatabaseCPUAlarm:
         Type: AWS::CloudWatch::Alarm
