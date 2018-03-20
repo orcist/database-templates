@@ -76,14 +76,14 @@ Resources:
         Type: "AWS::RDS::DBParameterGroup"
         Properties: 
             Description: Prisma DB parameter group 
-            Family: aurora5.6
+            Family: aurora-mysql5.7
             Parameters:
                 max_connections: 300
 
     DatabaseCluster:
         Type: AWS::RDS::DBCluster
         Properties:
-            Engine: aurora
+            Engine: aurora-mysql
             MasterUsername:
               Ref: DatabaseUsername
             MasterUserPassword:
@@ -95,11 +95,12 @@ Resources:
               Ref: DatabaseSubnetGroup
             VpcSecurityGroupIds:
               - Ref: DatabaseSecurityGroup
+            DBClusterParameterGroupName: default.aurora-mysql5.7
 
     DatabaseInstance:
         Type: AWS::RDS::DBInstance
         Properties:
-            Engine: aurora
+            Engine: aurora-mysql
             DBClusterIdentifier:
                 Ref: DatabaseCluster
             DBInstanceClass:

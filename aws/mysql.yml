@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: RDS MySQL cluster.
+Description: RDS MySQL instance.
 Parameters:
     DatabaseName:
       Default: "prisma"
@@ -93,30 +93,15 @@ Resources:
         Type: "AWS::RDS::DBParameterGroup"
         Properties: 
             Description: Prisma DB parameter group 
-            Family: MySQL5.6
+            Family: MySQL5.7
             Parameters:
                 max_connections: 300
-
-    # DatabaseCluster:
-    #     Type: AWS::RDS::DBCluster
-    #     Properties:
-    #         Engine: aurora
-    #         MasterUsername:
-    #           Ref: DatabaseUsername
-    #         MasterUserPassword:
-    #           Ref: DatabasePassword
-    #         BackupRetentionPeriod: 35
-    #         PreferredBackupWindow: 02:00-03:00
-    #         PreferredMaintenanceWindow: mon:03:00-mon:04:00
-    #         DBSubnetGroupName:
-    #           Ref: DatabaseSubnetGroup
-    #         VpcSecurityGroupIds:
-    #           - Ref: DatabaseSecurityGroup
 
     DatabaseInstance:
         Type: AWS::RDS::DBInstance
         Properties:
             Engine: mysql
+            EngineVersion: 5.7.19
             DBInstanceClass:
                 Ref: DatabaseInstanceType
             DBSubnetGroupName:
